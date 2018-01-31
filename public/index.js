@@ -53,6 +53,12 @@ var populateDropdown = function(){
 var handleOptionSelected = function(country){
   var pTag = document.querySelector('#select-result');
   var country = countries[this.value];
+
+  var jsonString = JSON.stringify(country);
+  localStorage.setItem('Last selected country', jsonString);
+
+
+
   pTag.innerText = `Country: ${country.name} \n Population: ${country.population} \n Capital: ${country.capital}`;
 
 }
