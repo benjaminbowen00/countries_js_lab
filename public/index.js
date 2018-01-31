@@ -74,9 +74,25 @@ var handleOptionSelected = function(country){
 
 
   pTag.innerText = `Country: ${country.name} \n Population: ${country.population} \n Capital: ${country.capital}`;
+  borderArrayCountries = (convertCodeToCountry(country.borders))
+
+  var ul = document.querySelector('#border-list')
+  ul.innerHTML = "";
+  borderArrayCountries.forEach(function(country){
+    var li = document.createElement('li');
+    li.innerText = `${country.name}, ${country.capital}`;
+    ul.appendChild(li);
+  })
 
 }
 
+
+var convertCodeToCountry = function(codesArray){
+  var jsonStringCountries = localStorage.getItem('Countries array');
+  var countries = JSON.parse(jsonStringCountries);
+  var filteredCountries = countries.filter(country => codesArray.indexOf(country.alpha3Code) != -1);
+  return filteredCountries;
+}
 
 var app = function(){
   // var showCountriesButton = document.getElementById("button-show-countries");
