@@ -10,7 +10,7 @@ var populateList = function(countries){
   countries.forEach(function(country){
     var li = document.createElement('li');
     li.innerText = country.name;
-    ul.appendChild(li);
+    ul.appendChild(li)
   });
 }
 
