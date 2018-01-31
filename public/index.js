@@ -1,4 +1,4 @@
-var countries
+
 
 var makeRequest = function(url, callback){
   var request = new XMLHttpRequest();
@@ -18,6 +18,11 @@ var populateList = function(countries){
 
 var formDropdown = function(countries){
   var select = document.querySelector('#country-dropdown')
+  var optionAtTop = document.createElement('option');
+  optionAtTop.innerText = "Select a country";
+  optionAtTop.disabled = true;
+  optionAtTop.selected = true;
+  select.appendChild(optionAtTop);
   countries.forEach(function(country, index){
     var option = document.createElement('option');
     option.innerText = country.name;
@@ -31,7 +36,12 @@ var requestComplete = function(){
   // console.log(this);
   if (this.status !== 200) {return;}
   var jsonString = this.responseText;
-  countries = JSON.parse(jsonString);
+  var countries = JSON.parse(jsonString);
+
+  var jsonStringCountries = JSON.stringify(countries);
+  localStorage.setItem('Countries array', jsonStringCountries);
+
+
   // var country = countries[0];
   // console.log(jsonString);
   // console.log(countries);
@@ -52,6 +62,10 @@ var populateDropdown = function(){
 
 var handleOptionSelected = function(country){
   var pTag = document.querySelector('#select-result');
+
+  var jsonStringCountries = localStorage.getItem('Countries array');
+  var countries = JSON.parse(jsonStringCountries);
+
   var country = countries[this.value];
 
   var jsonString = JSON.stringify(country);
